@@ -13,7 +13,7 @@ class ConnectedApp extends React.Component {
   }
   componentDidMount() {
     window.addEventListener('message', this.handleWrapperMessage)
-
+    window.app = this.state.app
     // If using Parcel, reload instead of using HMR.
     // HMR makes the app disconnect from the wrapper and the state is empty until a reload
     // See: https://github.com/parcel-bundler/parcel/issues/289
