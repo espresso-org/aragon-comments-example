@@ -26,6 +26,7 @@ contract CounterApp is HasComments, AragonApp {
 
     }
 
+
     /**
      * @notice Increment the counter by `step`
      * @param step Amount to increment by

@@ -11,6 +11,7 @@ import "@aragon/apps-token-manager/contracts/TokenManager.sol";
 import "@aragon/apps-shared-minime/contracts/MiniMeToken.sol";
 
 import "./CounterApp.sol";
+import "../aragon-comments/contracts/AragonComments.sol";
 
 contract KitBase is APMNamehash {
     ENS public ens;
@@ -58,7 +59,9 @@ contract Kit is KitBase {
         bytes32 appId = apmNamehash("test-app");
         bytes32 votingAppId = apmNamehash("voting");
         bytes32 tokenManagerAppId = apmNamehash("token-manager");
+        
 
+        AragonComments araComments = AragonComments(dao.newAppInstance(apmNamehash("aragon-comments"), latestVersionAppBase(apmNamehash("aragon-comments"))));
         CounterApp app = CounterApp(dao.newAppInstance(appId, latestVersionAppBase(appId)));
         Voting voting = Voting(dao.newAppInstance(votingAppId, latestVersionAppBase(votingAppId)));
         TokenManager tokenManager = TokenManager(dao.newAppInstance(tokenManagerAppId, latestVersionAppBase(tokenManagerAppId)));
