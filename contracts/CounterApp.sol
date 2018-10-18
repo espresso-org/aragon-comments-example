@@ -2,9 +2,9 @@ pragma solidity ^0.4.24;
 
 import "@aragon/os/contracts/apps/AragonApp.sol";
 import "@aragon/os/contracts/lib/math/SafeMath.sol";
-import "./CommentApp.sol";
+import "./HasComments.sol";
 
-contract CounterApp is CommentApp, AragonApp {
+contract CounterApp is HasComments, AragonApp {
     using SafeMath for uint256;
 
     /// Events

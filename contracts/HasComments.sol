@@ -5,7 +5,7 @@ import "@aragon/os/contracts/kernel/KernelConstants.sol";
 import "@aragon/os/contracts/apm/APMNamehash.sol";
 
 
-contract CommentApp is APMNamehash {
+contract HasComments is APMNamehash {
     bytes32 public constant APP_BASES_NAMESPACE = 0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f;
 
     function getAragonCommentsApp() public returns (address) {
