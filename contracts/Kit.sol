@@ -62,6 +62,7 @@ contract Kit is KitBase {
         
 
         AragonComments araComments = AragonComments(dao.newAppInstance(apmNamehash("aragon-comments"), latestVersionAppBase(apmNamehash("aragon-comments"))));
+        //AragonComments araComments = new AragonComments();
         CounterApp app = CounterApp(dao.newAppInstance(appId, latestVersionAppBase(appId)));
         Voting voting = Voting(dao.newAppInstance(votingAppId, latestVersionAppBase(votingAppId)));
         TokenManager tokenManager = TokenManager(dao.newAppInstance(tokenManagerAppId, latestVersionAppBase(tokenManagerAppId)));
@@ -70,6 +71,7 @@ contract Kit is KitBase {
         token.changeController(tokenManager);
 
         araComments.initialize();
+        app.setAragonComments(araComments);
 
         app.initialize();
         tokenManager.initialize(token, true, 0, true);

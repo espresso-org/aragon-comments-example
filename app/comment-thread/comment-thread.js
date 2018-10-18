@@ -4,7 +4,7 @@ import contract from './contrat'
 
 export class CommentThread extends React.Component {
 
-    state = { test: 0, contractAddr: 0 }
+    state = { test: 0 }
     contract
 
     constructor(props) {
@@ -18,20 +18,29 @@ export class CommentThread extends React.Component {
         const contractAddr = await observableToPromise(this.props.aragonApp.call('getAragonCommentsApp'))
         this.contract = this.props.aragonApp.external(contractAddr, contract.abi)
 
+        this.contract.events().subscribe(event => {
+            console.log('NEW EVENT: ', event)
+            this.updateThread()
+        })
+
         this.updateThread()
     }
 
-    async updateThread() {
+    updateThread = async () => {
         const test = await observableToPromise(this.contract.test())
         this.setState( { test })
+    }
+
+    postComment = async () => {
+        this.props.aragonApp.postComment('test!!').subscribe(console.log)
     }
 
     render() {
         return (
             <div>
-                contract: {this.state.contractAddr} <br />
                 test: {this.state.test}
 
+                <button onClick={this.postComment}>Send</button>
             </div>
         )
     }

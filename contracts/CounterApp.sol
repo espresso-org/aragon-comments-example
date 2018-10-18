@@ -3,9 +3,11 @@ pragma solidity ^0.4.24;
 import "@aragon/os/contracts/apps/AragonApp.sol";
 import "@aragon/os/contracts/lib/math/SafeMath.sol";
 import "./HasComments.sol";
+import "../aragon-comments/contracts/AragonComments.sol";
 
 contract CounterApp is HasComments, AragonApp {
     using SafeMath for uint256;
+
 
     /// Events
     event Increment(address indexed entity, uint256 step);
@@ -24,7 +26,32 @@ contract CounterApp is HasComments, AragonApp {
 
     function postComment(string comment) public {
 
+        //getAragonCommentsApp().postComment(comment);
+        aragonComments.postComment(comment);
     }
+
+
+    AragonComments private aragonComments;
+
+    function setAragonComments(address _aragonComments) {
+        aragonComments = AragonComments(_aragonComments);
+    }
+
+    function test() external view returns (string) {
+        return aragonComments.test();
+    }
+
+    function test2() external view returns (string) {
+        return aragonComments.test2();
+    }
+
+    function test3() external view returns (uint) {
+        return aragonComments.test3();
+    }
+
+    function getAragonCommentsApp() public returns (address) {
+        return aragonComments;
+    }    
 
 
     /**

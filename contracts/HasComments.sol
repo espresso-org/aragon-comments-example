@@ -3,6 +3,7 @@ pragma solidity ^0.4.24;
 import "@aragon/os/contracts/kernel/IKernel.sol";
 import "@aragon/os/contracts/kernel/KernelConstants.sol";
 import "@aragon/os/contracts/apm/APMNamehash.sol";
+//import 
 
 
 contract HasComments is APMNamehash {
