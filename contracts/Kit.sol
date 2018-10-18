@@ -69,6 +69,8 @@ contract Kit is KitBase {
         MiniMeToken token = tokenFactory.createCloneToken(MiniMeToken(0), 0, "App token", 0, "APP", true);
         token.changeController(tokenManager);
 
+        araComments.initialize();
+
         app.initialize();
         tokenManager.initialize(token, true, 0, true);
         // Initialize apps
