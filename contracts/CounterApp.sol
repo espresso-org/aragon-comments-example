@@ -2,8 +2,9 @@ pragma solidity ^0.4.24;
 
 import "@aragon/os/contracts/apps/AragonApp.sol";
 import "@aragon/os/contracts/lib/math/SafeMath.sol";
+import "./CommentApp.sol";
 
-contract CounterApp is AragonApp {
+contract CounterApp is CommentApp, AragonApp {
     using SafeMath for uint256;
 
     /// Events
@@ -19,6 +20,10 @@ contract CounterApp is AragonApp {
 
     function initialize() onlyInit public {
         initialized();
+    }
+
+    function postComment(string comment) public {
+
     }
 
     /**
