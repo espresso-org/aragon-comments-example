@@ -25,48 +25,16 @@ contract CounterApp is HasComments, AragonApp {
         initialized();
 
         //kernel().apps()
+
         //aragonComments = AragonComments(getAragonCommentsApp());
     }
 
     function postComment(string comment) public {
-
+        AragonComments aragonComments = AragonComments(getAragonCommentsApp());
         //getAragonCommentsApp().postComment(comment);
         aragonComments.postComment(comment);
     }
 
-
-    AragonComments private aragonComments;
-
-    function setAragonComments(address _aragonComments) {
-        aragonComments = AragonComments(_aragonComments);
-    }
-
-    function test() external view returns (string) {
-        return aragonComments.test();
-    }
-
-    function test2() external view returns (string) {
-        return aragonComments.test2();
-    }
-
-    function test3() external view returns (uint) {
-        return aragonComments.test3();
-    }
-
-    /*
-    function getAragonCommentsApp() public returns (address) {
-        return aragonComments;
-    }    */
-
-    function getAragonCommentsApp0() public returns (address) {
-        return aragonComments;
-    }    
-
-    
-    function getKernelApp() external returns (address) {
-        Kernel k = Kernel(kernel());
-        return k.apps(2, 2);
-    }
 
     
 

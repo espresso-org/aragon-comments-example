@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 import "@aragon/os/contracts/kernel/IKernel.sol";
 import "@aragon/os/contracts/kernel/KernelConstants.sol";
 import "@aragon/os/contracts/apm/APMNamehash.sol";
-//import 
+import "../aragon-comments/contracts/AragonComments.sol";
 
 
 contract HasComments is APMNamehash {
@@ -12,7 +12,8 @@ contract HasComments is APMNamehash {
     AragonComments private aragonComments;
 
     function getAragonCommentsApp() public returns (address) {
-        return kernel().getApp(APP_BASES_NAMESPACE, apmNamehash("aragon-comments"));
+        //return kernel().getApp(APP_BASES_NAMESPACE, apmNamehash("aragon-comments"));
+        return aragonComments;
     }
 
     function setAragonComments(address _aragonComments) public {
