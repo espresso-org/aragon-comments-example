@@ -4,7 +4,7 @@ import contract from './contrat'
 
 export class CommentThread extends React.Component {
 
-    state = { test: 0 }
+    state = { test: '', currentComment: '' }
     contract
 
     constructor(props) {
@@ -32,14 +32,15 @@ export class CommentThread extends React.Component {
     }
 
     postComment = async () => {
-        this.props.aragonApp.postComment('test!!').subscribe(console.log)
+        this.props.aragonApp.postComment(this.state.currentComment).subscribe(console.log)
     }
 
     render() {
         return (
             <div>
                 test: {this.state.test}
-
+                <br /><br />
+                <input type="text" value={this.state.newComment} onChange={e => this.setState({ currentComment: e.target.value })} /><br/>
                 <button onClick={this.postComment}>Send</button>
             </div>
         )
