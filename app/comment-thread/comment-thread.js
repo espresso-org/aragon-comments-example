@@ -19,7 +19,6 @@ export class CommentThread extends React.Component {
         this.contract = this.props.aragonApp.external(contractAddr, contract.abi)
 
         this.contract.events().subscribe(event => {
-            console.log('NEW EVENT: ', event)
             this.updateThread()
         })
 
@@ -27,7 +26,7 @@ export class CommentThread extends React.Component {
     }
 
     updateThread = async () => {
-        const test = await observableToPromise(this.contract.test())
+        const test = await observableToPromise(this.contract.getComment())
         this.setState( { test })
     }
 

@@ -1,6 +1,12 @@
 {
   "appName": "aragon-comments.aragonpm.eth",
   "version": "0.0.1",
-  "roles": [],
+  "roles": [
+    {
+      "name": "Test role",
+      "id": "TEST_ROLE",
+      "params": []
+    }
+  ],
   "path": "contracts/AragonComments.sol"
 }

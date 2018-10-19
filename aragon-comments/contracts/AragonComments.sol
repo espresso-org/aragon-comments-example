@@ -4,6 +4,8 @@ import "@aragon/os/contracts/apps/AragonApp.sol";
 
 contract AragonComments is AragonApp {
 
+    bytes32 constant public TEST_ROLE = keccak256("TEST_ROLE");
+
     event NewComment(address indexed entity);
 
     string private currentComment;
@@ -21,7 +23,7 @@ contract AragonComments is AragonApp {
         emit NewComment(msg.sender);
     }
 
-    function test() external view returns (string) {
+    function getComment() external view returns (string) {
         return currentComment;
     }
 
