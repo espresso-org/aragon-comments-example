@@ -59,9 +59,10 @@ contract Kit is KitBase {
         bytes32 appId = apmNamehash("test-app");
         bytes32 votingAppId = apmNamehash("voting");
         bytes32 tokenManagerAppId = apmNamehash("token-manager");
+        bytes32 aragonCommentsId = apmNamehash("aragon-comments");
         
 
-        AragonComments araComments = AragonComments(dao.newAppInstance(apmNamehash("aragon-comments"), latestVersionAppBase(apmNamehash("aragon-comments"))));
+        AragonComments araComments = AragonComments(dao.newAppInstance(aragonCommentsId, latestVersionAppBase(aragonCommentsId)));
         //AragonComments araComments = new AragonComments();
         CounterApp app = CounterApp(dao.newAppInstance(appId, latestVersionAppBase(appId)));
         Voting voting = Voting(dao.newAppInstance(votingAppId, latestVersionAppBase(votingAppId)));

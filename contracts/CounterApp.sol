@@ -1,6 +1,7 @@
 pragma solidity ^0.4.24;
 
 import "@aragon/os/contracts/apps/AragonApp.sol";
+import "@aragon/os/contracts/kernel/Kernel.sol";
 import "@aragon/os/contracts/lib/math/SafeMath.sol";
 import "./HasComments.sol";
 import "../aragon-comments/contracts/AragonComments.sol";
@@ -22,6 +23,9 @@ contract CounterApp is HasComments, AragonApp {
 
     function initialize() onlyInit public {
         initialized();
+
+        //kernel().apps()
+        //aragonComments = AragonComments(getAragonCommentsApp());
     }
 
     function postComment(string comment) public {
@@ -49,9 +53,22 @@ contract CounterApp is HasComments, AragonApp {
         return aragonComments.test3();
     }
 
+    /*
     function getAragonCommentsApp() public returns (address) {
         return aragonComments;
+    }    */
+
+    function getAragonCommentsApp0() public returns (address) {
+        return aragonComments;
     }    
+
+    
+    function getKernelApp() external returns (address) {
+        Kernel k = Kernel(kernel());
+        return k.apps(2, 2);
+    }
+
+    
 
 
     /**

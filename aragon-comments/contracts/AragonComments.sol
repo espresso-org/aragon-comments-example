@@ -25,12 +25,5 @@ contract AragonComments is AragonApp {
         return currentComment;
     }
 
-    function test3() external view returns (uint) {
-        return currentValue;
-    }
 
-    function test2() external view returns (string) {
-        return "hello";
-    }    
-    
 }
