@@ -6,15 +6,15 @@
     "@aragon/apps-shared-minime": "^1.0.0",
     "@aragon/apps-token-manager": "2.0.0-alpha.1",
     "@aragon/apps-voting": "2.0.0-alpha.1",
-    "@aragon/os": "4.0.0-beta.1",
     "@aragon/client": "^1.0.0-beta.9",
+    "@aragon/os": "4.0.0-beta.1",
     "@aragon/ui": "^0.16.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "styled-components": "^3.4.9"
   },
   "devDependencies": {
-    "@aragon/cli": "^5.0.0",
+    "@aragon/cli": "^5.1.1",
     "@babel/core": "^7.1.2",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/polyfill": "^7.0.0",
