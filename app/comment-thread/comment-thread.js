@@ -4,7 +4,7 @@ import contract from './contrat'
 
 export class CommentThread extends React.Component {
 
-    state = { test: '', currentComment: '' }
+    state = { test: '', currentComment: '', comments: [] }
     contract
 
     constructor(props) {
@@ -26,8 +26,15 @@ export class CommentThread extends React.Component {
     }
 
     updateThread = async () => {
-        const test = await observableToPromise(this.contract.getComment())
-        this.setState( { test })
+        const commentsCount = await observableToPromise(this.contract.commentsCount())
+
+        let comments = []
+        
+        for (let i = 0; i < commentsCount; i++)
+            comments.push(await observableToPromise(this.contract.comments(i)))
+
+        //const test = await observableToPromise(this.contract.getComment())
+        this.setState( { comments })
     }
 
     postComment = async () => {
@@ -37,7 +44,9 @@ export class CommentThread extends React.Component {
     render() {
         return (
             <div>
-                test: {this.state.test}
+               {this.state.comments.map((comment, i) => 
+                    <div>comment #{i}: {comment.message}</div>
+                )}
                 <br /><br />
                 <input type="text" value={this.state.newComment} onChange={e => this.setState({ currentComment: e.target.value })} /><br/>
                 <button onClick={this.postComment}>Send</button>
