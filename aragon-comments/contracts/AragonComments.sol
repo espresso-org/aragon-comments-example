@@ -15,19 +15,15 @@ contract AragonComments is AragonApp {
     }
 
     Comment[] public comments;
-    string private currentComment;
 
     function initialize() onlyInit public {
         initialized();
-
-        currentComment = "initial comment";
-
     }
 
-    function postComment(string _comment) public {
+    function postComment(string _comment, address _author) public {
         comments.push(Comment({
-            author: 0,
-            date: 123,
+            author: _author,
+            date: now,
             message: _comment
         }));
         emit NewComment(msg.sender);
@@ -35,10 +31,6 @@ contract AragonComments is AragonApp {
 
     function commentsCount() external view returns (uint256) {
         return comments.length;
-    }
-
-    function getComment() external view returns (string) {
-        return currentComment;
     }
 
 

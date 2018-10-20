@@ -32,7 +32,7 @@ contract CounterApp is HasComments, AragonApp {
     function postComment(string comment) public {
         AragonComments aragonComments = AragonComments(getAragonCommentsApp());
         //getAragonCommentsApp().postComment(comment);
-        aragonComments.postComment(comment);
+        aragonComments.postComment(comment, msg.sender);
     }
 
 
