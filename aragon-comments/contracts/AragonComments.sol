@@ -22,15 +22,14 @@ contract AragonComments is AragonApp {
 
         currentComment = "initial comment";
 
-        comments.push(Comment({
-            author: 0,
-            date: 123,
-            message: "Hello!"
-        }));
     }
 
     function postComment(string _comment) public {
-        currentComment = _comment;
+        comments.push(Comment({
+            author: 0,
+            date: 123,
+            message: _comment
+        }));
         emit NewComment(msg.sender);
     }
 
