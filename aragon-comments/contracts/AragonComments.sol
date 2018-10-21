@@ -6,7 +6,7 @@ contract AragonComments is AragonApp {
 
     bytes32 constant public TEST_ROLE = keccak256("TEST_ROLE");
 
-    event NewComment(address indexed entity);
+    event NewComment(address indexed entity, uint t, string message);
 
     struct Comment {
         address author;
@@ -26,7 +26,7 @@ contract AragonComments is AragonApp {
             date: now,
             message: _comment
         }));
-        emit NewComment(msg.sender);
+        emit NewComment(msg.sender, 42, _comment);
     }
 
     function commentsCount() external view returns (uint256) {

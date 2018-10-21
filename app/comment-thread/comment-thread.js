@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import contract from './contrat'
 import { Button } from '@aragon/ui'
 import aclContract from './acl-contract'
+import { keccak256 } from 'js-sha3'
 //import Web3 from 'web3'
 
 
@@ -15,6 +16,7 @@ export class CommentThread extends React.Component {
         super(props)
         this.init()
         window.comments = this
+        window.keccak256 = keccak256
         //window.web33 = Web3
     }
 
