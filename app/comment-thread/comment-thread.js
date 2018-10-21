@@ -1,5 +1,7 @@
 import React from 'react'
+import styled from 'styled-components'
 import contract from './contrat'
+import { Button } from '@aragon/ui'
 
 
 export class CommentThread extends React.Component {
@@ -43,14 +45,14 @@ export class CommentThread extends React.Component {
 
     render() {
         return (
-            <div>
+            <Main>
                {this.state.comments.map((comment, i) => 
-                    <div>comment #{i}: {comment.message}</div>
+                    <Comment>{comment.message}</Comment>
                 )}
                 <br /><br />
-                <input type="text" value={this.state.newComment} onChange={e => this.setState({ currentComment: e.target.value })} /><br/>
-                <button onClick={this.postComment}>Send</button>
-            </div>
+                <InputBox type="text" value={this.state.newComment} onChange={e => this.setState({ currentComment: e.target.value })} />
+                <Button onClick={this.postComment}>Send</Button>
+            </Main>
         )
     }
 
@@ -67,3 +69,21 @@ function observableToPromise(observable) {
 function wait(ms) {
     return new Promise(res => setTimeout(res, ms))
 }
+
+const Main = styled.div`
+    width: 300px;
+`
+
+const Comment = styled.div`
+    background: white;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    padding: 10px;
+    margin-bottom: 8px;
+`
+
+const InputBox = styled.input`
+    width: 236px;
+    height: 43px;
+    border: none;
+`
