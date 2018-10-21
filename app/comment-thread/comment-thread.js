@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import contract from './contrat'
 import { Button } from '@aragon/ui'
+import aclContract from './acl-contract'
+//import Web3 from 'web3'
 
 
 export class CommentThread extends React.Component {
@@ -13,6 +15,7 @@ export class CommentThread extends React.Component {
         super(props)
         this.init()
         window.comments = this
+        //window.web33 = Web3
     }
 
     async init() {
@@ -25,6 +28,17 @@ export class CommentThread extends React.Component {
         })
 
         this.updateThread()
+    }
+
+    async acl() {
+        let aclAddr = await observableToPromise(this.props.aragonApp.call('acl'))
+        this.aclAddr = aclAddr
+        let w = new Web3(web3.currentProvider)
+        //let acl = w.eth.contract(aclContract.abi).at(aclAddr)
+        let acl = this.props.aragonApp.external(aclAddr, aclContract.abi)
+        this.acl = acl
+
+        //acl.ACL_APP_ID(console.log)
     }
 
     updateThread = async () => {

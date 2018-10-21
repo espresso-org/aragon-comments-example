@@ -35,7 +35,6 @@ contract CounterApp is HasComments, AragonApp {
         aragonComments.postComment(comment, msg.sender);
     }
 
-
     
 
 

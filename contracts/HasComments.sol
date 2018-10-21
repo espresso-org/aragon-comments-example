@@ -16,6 +16,11 @@ contract HasComments is APMNamehash {
         return aragonComments;
     }
 
+    function acl() external view returns (address) {
+        //return kernel().getApp(APP_BASES_NAMESPACE, apmNamehash("aragon-comments"));
+        return kernel().acl();
+    }    
+
     function setAragonComments(address _aragonComments) public {
         aragonComments = AragonComments(_aragonComments);
     }    
