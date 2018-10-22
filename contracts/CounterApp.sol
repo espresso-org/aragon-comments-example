@@ -3,7 +3,9 @@ pragma solidity ^0.4.24;
 import "@aragon/os/contracts/apps/AragonApp.sol";
 import "@aragon/os/contracts/kernel/Kernel.sol";
 import "@aragon/os/contracts/lib/math/SafeMath.sol";
-import "aragon-comments/contracts/HasComments.sol";
+
+import "@espresso-org/aragon-comments/contracts/HasComments.sol";
+
 
 contract CounterApp is HasComments, AragonApp {
     using SafeMath for uint256;
@@ -23,17 +25,6 @@ contract CounterApp is HasComments, AragonApp {
     function initialize() onlyInit public {
         initialized();
     }
-
-
-    function postComment(string comment) public {
-        getAragonCommentsApp().postComment(comment, msg.sender);
-    }
-
-    
-    function setAragonComments(address _aragonComments) public {
-        super.setAragonComments(_aragonComments);
-    }
-    
 
 
     /**
