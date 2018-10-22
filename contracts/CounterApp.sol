@@ -23,18 +23,17 @@ contract CounterApp is HasComments, AragonApp {
 
     function initialize() onlyInit public {
         initialized();
-
-        //kernel().apps()
-
-        //aragonComments = AragonComments(getAragonCommentsApp());
     }
+
 
     function postComment(string comment) public {
-        AragonComments aragonComments = AragonComments(getAragonCommentsApp());
-        //getAragonCommentsApp().postComment(comment);
-        aragonComments.postComment(comment, msg.sender);
+        getAragonCommentsApp().postComment(comment, msg.sender);
     }
 
+    
+    function setAragonComments(address _aragonComments) public {
+        super.setAragonComments(_aragonComments);
+    }
     
 
 
@@ -56,7 +55,5 @@ contract CounterApp is HasComments, AragonApp {
         emit Decrement(msg.sender, step);
     }
 
-    function setAragonComments(address _aragonComments) public {
-        super.setAragonComments(_aragonComments);
-    }     
+    
 }
