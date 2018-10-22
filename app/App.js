@@ -8,7 +8,7 @@ import {
 } from '@aragon/ui'
 import Aragon, { providers } from '@aragon/client'
 import styled from 'styled-components'
-import { CommentThread } from './comment-thread/comment-thread'
+import { CommentThread } from 'aragon-comments'
 
 const AppContainer = styled(AragonApp)`
   display: flex;
