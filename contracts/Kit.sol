@@ -72,7 +72,7 @@ contract Kit is KitBase {
         token.changeController(tokenManager);
 
         araComments.initialize();
-        araComments.postComment("faewf", msg.sender);
+        
         app.setAragonComments(araComments);
         
 
@@ -86,7 +86,7 @@ contract Kit is KitBase {
 
         acl.createPermission(ANY_ENTITY, voting, voting.CREATE_VOTES_ROLE(), root);
 
-        acl.createPermission(root, araComments, araComments.TEST_ROLE(), root);
+        acl.createPermission(root, araComments, araComments.COMMENT_ROLE(), root);
 
         acl.createPermission(voting, app, app.INCREMENT_ROLE(), voting);
         acl.createPermission(ANY_ENTITY, app, app.DECREMENT_ROLE(), root);

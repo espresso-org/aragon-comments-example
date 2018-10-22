@@ -4,7 +4,8 @@ import contract from './contrat'
 import { Button } from '@aragon/ui'
 import aclContract from './acl-contract'
 import { keccak256 } from 'js-sha3'
-//import Web3 from 'web3'
+
+const COMMENT_ROLE = `0x${keccak256('COMMENT_ROLE')}`
 
 
 export class CommentThread extends React.Component {
@@ -16,8 +17,6 @@ export class CommentThread extends React.Component {
         super(props)
         this.init()
         window.comments = this
-        window.keccak256 = keccak256
-        //window.web33 = Web3
     }
 
     async init() {
@@ -32,13 +31,20 @@ export class CommentThread extends React.Component {
         this.updateThread()
     }
 
-    async acl() {
+    async getAragonCommentsAddress() {
         let aclAddr = await observableToPromise(this.props.aragonApp.call('acl'))
         this.aclAddr = aclAddr
         let w = new Web3(web3.currentProvider)
         //let acl = w.eth.contract(aclContract.abi).at(aclAddr)
         let acl = this.props.aragonApp.external(aclAddr, aclContract.abi)
         this.acl = acl
+
+        acl.events()
+           .filter(e => e.returnValues.role === COMMENT_ROLE)
+           .subscribe(e => {
+               console.log('contract addr: ', e.returnValues.app)
+               this.contractAddress = e.returnValues.app
+           })
 
         //acl.ACL_APP_ID(console.log)
     }

@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "roles": [
     {
-      "name": "Test role",
-      "id": "TEST_ROLE",
+      "name": "Can add comments",
+      "id": "COMMENT_ROLE",
       "params": []
     }
   ],

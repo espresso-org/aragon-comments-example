@@ -4,7 +4,7 @@ import "@aragon/os/contracts/apps/AragonApp.sol";
 
 contract AragonComments is AragonApp {
 
-    bytes32 constant public TEST_ROLE = keccak256("TEST_ROLE");
+    bytes32 constant public COMMENT_ROLE = keccak256("COMMENT_ROLE");
 
     event NewComment(address indexed entity, uint t, string message);
 
