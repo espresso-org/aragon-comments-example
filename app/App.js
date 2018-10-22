@@ -1,14 +1,9 @@
 import React from 'react'
-import {
-  AragonApp,
-  Button,
-  Text,
-
-  observe
-} from '@aragon/ui'
-import Aragon, { providers } from '@aragon/client'
+import { AragonApp, Button, Text, observe } from '@aragon/ui'
 import styled from 'styled-components'
-import { CommentThread } from 'aragon-comments'
+
+import { CommentThread } from '@espresso-org/aragon-comments'
+
 
 const AppContainer = styled(AragonApp)`
   display: flex;
@@ -25,7 +20,9 @@ export default class App extends React.Component {
           <Button onClick={() => this.props.app.decrement(1)}>Decrement</Button>
           <Button onClick={() => this.props.app.increment(1)}>Increment</Button>
         </div>
+
         <CommentThread aragonApp={this.props.app} />
+        
       </AppContainer>
     )
   }
