@@ -6,11 +6,12 @@ import aclContract from './acl-contract'
 import { keccak256 } from 'js-sha3'
 
 const COMMENT_ROLE = `0x${keccak256('COMMENT_ROLE')}`
+const EMPTY_ADDRESS = '0x0000000000000000000000000000000000000000'
 
 
 export class CommentThread extends React.Component {
 
-    state = { test: '', currentComment: '', comments: [] }
+    state = { test: '', currentComment: '', comments: [], isActivated: true }
     contract
 
     constructor(props) {
@@ -21,30 +22,43 @@ export class CommentThread extends React.Component {
 
     async init() {
         await wait(500)
-        const contractAddr = await observableToPromise(this.props.aragonApp.call('getAragonCommentsApp'))
-        this.contract = this.props.aragonApp.external(contractAddr, contract.abi)
+        const savedContractAddr = await observableToPromise(this.props.aragonApp.call('getAragonCommentsApp'))
 
-        this.contract.events().subscribe(event => {
+        if (savedContractAddr != EMPTY_ADDRESS) {
+            this.contract = this.props.aragonApp.external(savedContractAddr, contract.abi)
+
+            this.contract.events().subscribe(event => {
+                this.updateThread()
+            })
+
             this.updateThread()
-        })
 
-        this.updateThread()
+            this.setState({ isActivated: true })
+        }
+        else {
+            this.setState({ isActivated: false })
+            this.contractAddress = await this.getAragonCommentsAddress()
+        }
     }
 
     async getAragonCommentsAddress() {
         let aclAddr = await observableToPromise(this.props.aragonApp.call('acl'))
         this.aclAddr = aclAddr
-        let w = new Web3(web3.currentProvider)
-        //let acl = w.eth.contract(aclContract.abi).at(aclAddr)
         let acl = this.props.aragonApp.external(aclAddr, aclContract.abi)
         this.acl = acl
 
-        acl.events()
-           .filter(e => e.returnValues.role === COMMENT_ROLE)
+        return observableToPromise(
+           acl.events()
+            .filter(e => e.returnValues.role === COMMENT_ROLE)
+            .map(e => e.returnValues.app)
+            .first()
+        )
+
+           /*
            .subscribe(e => {
                console.log('contract addr: ', e.returnValues.app)
                this.contractAddress = e.returnValues.app
-           })
+           })*/
 
         //acl.ACL_APP_ID(console.log)
     }
@@ -61,6 +75,10 @@ export class CommentThread extends React.Component {
         this.setState( { comments })
     }
 
+    activateComments = () => {
+        this.props.aragonApp.setAragonComments(this.contractAddress)
+    }
+
     postComment = async () => {
         this.props.aragonApp.postComment(this.state.currentComment).subscribe(console.log)
     }
@@ -68,12 +86,21 @@ export class CommentThread extends React.Component {
     render() {
         return (
             <Main>
-               {this.state.comments.map((comment, i) => 
-                    <Comment>{comment.message}</Comment>
-                )}
-                <br /><br />
-                <InputBox type="text" value={this.state.newComment} onChange={e => this.setState({ currentComment: e.target.value })} />
-                <Button onClick={this.postComment}>Send</Button>
+                { this.state.isActivated ? 
+                    <div>
+                        {this.state.comments.map((comment, i) => 
+                            <Comment>{comment.message}</Comment>
+                        )}
+                        <br /><br />
+                        <InputBox type="text" value={this.state.newComment} onChange={e => this.setState({ currentComment: e.target.value })} />
+                        <Button onClick={this.postComment}>Send</Button>
+                    </div>
+                    :                
+                    <div>
+                        Comments are not active
+                        <Button onClick={this.activateComments}>Activate Comments</Button>
+                    </div>
+                }
             </Main>
         )
     }

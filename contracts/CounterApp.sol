@@ -55,4 +55,8 @@ contract CounterApp is HasComments, AragonApp {
         value = value.sub(step);
         emit Decrement(msg.sender, step);
     }
+
+    function setAragonComments(address _aragonComments) public {
+        super.setAragonComments(_aragonComments);
+    }     
 }

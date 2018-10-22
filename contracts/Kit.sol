@@ -73,7 +73,7 @@ contract Kit is KitBase {
 
         araComments.initialize();
         
-        app.setAragonComments(araComments);
+        //app.setAragonComments(araComments);
         
 
         app.initialize();
