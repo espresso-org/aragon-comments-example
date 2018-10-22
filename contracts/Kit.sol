@@ -11,7 +11,7 @@ import "@aragon/apps-token-manager/contracts/TokenManager.sol";
 import "@aragon/apps-shared-minime/contracts/MiniMeToken.sol";
 
 import "./CounterApp.sol";
-import "../aragon-comments/contracts/AragonComments.sol";
+import "aragon-comments/contracts/AragonComments.sol";
 
 contract KitBase is APMNamehash {
     ENS public ens;
@@ -62,8 +62,10 @@ contract Kit is KitBase {
         bytes32 aragonCommentsId = apmNamehash("aragon-comments");
         
 
-        AragonComments araComments = AragonComments(dao.newAppInstance(aragonCommentsId, latestVersionAppBase(aragonCommentsId)));
-        //AragonComments araComments = new AragonComments();
+        //AragonComments araComments = AragonComments(dao.newAppInstance(aragonCommentsId, latestVersionAppBase(aragonCommentsId)));
+        //araComments.initialize();
+        //acl.createPermission(root, araComments, araComments.COMMENT_ROLE(), root);
+
         CounterApp app = CounterApp(dao.newAppInstance(appId, latestVersionAppBase(appId)));
         Voting voting = Voting(dao.newAppInstance(votingAppId, latestVersionAppBase(votingAppId)));
         TokenManager tokenManager = TokenManager(dao.newAppInstance(tokenManagerAppId, latestVersionAppBase(tokenManagerAppId)));
@@ -71,9 +73,8 @@ contract Kit is KitBase {
         MiniMeToken token = tokenFactory.createCloneToken(MiniMeToken(0), 0, "App token", 0, "APP", true);
         token.changeController(tokenManager);
 
-        araComments.initialize();
         
-        //app.setAragonComments(araComments);
+        
         
 
         app.initialize();
@@ -86,7 +87,6 @@ contract Kit is KitBase {
 
         acl.createPermission(ANY_ENTITY, voting, voting.CREATE_VOTES_ROLE(), root);
 
-        acl.createPermission(root, araComments, araComments.COMMENT_ROLE(), root);
 
         acl.createPermission(voting, app, app.INCREMENT_ROLE(), voting);
         acl.createPermission(ANY_ENTITY, app, app.DECREMENT_ROLE(), root);
