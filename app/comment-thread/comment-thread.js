@@ -22,9 +22,20 @@ export class CommentThread extends React.Component {
 
     async init() {
         await wait(500)
-        const savedContractAddr = await observableToPromise(this.props.aragonApp.call('getAragonCommentsApp'))
 
-        if (savedContractAddr != EMPTY_ADDRESS) {
+        if (this.props.aragonApp) {
+            await this.initializeContract()
+            
+            this.props.aragonApp.events()
+                .filter(e => e.event === 'SetAragonComments')
+                .subscribe(e => this.initializeContract())
+        }
+    }
+
+    initializeContract = async () => {
+        console.log('Initialize contract')
+        const savedContractAddr = await observableToPromise(this.props.aragonApp.call('getAragonCommentsApp'))
+        if (savedContractAddr !== EMPTY_ADDRESS) {
             this.contract = this.props.aragonApp.external(savedContractAddr, contract.abi)
 
             this.contract.events().subscribe(event => {
@@ -43,9 +54,7 @@ export class CommentThread extends React.Component {
 
     async getAragonCommentsAddress() {
         let aclAddr = await observableToPromise(this.props.aragonApp.call('acl'))
-        this.aclAddr = aclAddr
         let acl = this.props.aragonApp.external(aclAddr, aclContract.abi)
-        this.acl = acl
 
         return observableToPromise(
            acl.events()
@@ -53,14 +62,6 @@ export class CommentThread extends React.Component {
             .map(e => e.returnValues.app)
             .first()
         )
-
-           /*
-           .subscribe(e => {
-               console.log('contract addr: ', e.returnValues.app)
-               this.contractAddress = e.returnValues.app
-           })*/
-
-        //acl.ACL_APP_ID(console.log)
     }
 
     updateThread = async () => {
@@ -71,7 +72,6 @@ export class CommentThread extends React.Component {
         for (let i = 0; i < commentsCount; i++)
             comments.push(await observableToPromise(this.contract.comments(i)))
 
-        //const test = await observableToPromise(this.contract.getComment())
         this.setState( { comments })
     }
 
@@ -81,6 +81,7 @@ export class CommentThread extends React.Component {
 
     postComment = async () => {
         this.props.aragonApp.postComment(this.state.currentComment).subscribe(console.log)
+        this.setState({ currentComment: '' })
     }
 
     render() {
@@ -92,11 +93,15 @@ export class CommentThread extends React.Component {
                             <Comment>{comment.message}</Comment>
                         )}
                         <br /><br />
-                        <InputBox type="text" value={this.state.newComment} onChange={e => this.setState({ currentComment: e.target.value })} />
+                        <InputBox 
+                            type="text" 
+                            value={this.state.currentComment} 
+                            onChange={e => this.setState({ currentComment: e.target.value })} 
+                        />
                         <Button onClick={this.postComment}>Send</Button>
                     </div>
                     :                
-                    <div>
+                    <div style={{ textAlign: 'center' }}>
                         Comments are not active
                         <Button onClick={this.activateComments}>Activate Comments</Button>
                     </div>
@@ -120,7 +125,11 @@ function wait(ms) {
 }
 
 const Main = styled.div`
-    width: 300px;
+    width: 320px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;  
+    margin-left: 10px;  
 `
 
 const Comment = styled.div`
