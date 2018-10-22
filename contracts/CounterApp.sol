@@ -27,6 +27,17 @@ contract CounterApp is HasComments, AragonApp {
     }
 
 
+    function postComment(string comment) public {
+        getAragonCommentsApp().postComment(comment, msg.sender);
+    }
+
+    
+    function setAragonComments(address _aragonComments) public {
+        super.setAragonComments(_aragonComments);
+    }
+ 
+
+
     /**
      * @notice Increment the counter by `step`
      * @param step Amount to increment by
