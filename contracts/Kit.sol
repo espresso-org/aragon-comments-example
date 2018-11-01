@@ -11,7 +11,7 @@ import "@aragon/apps-token-manager/contracts/TokenManager.sol";
 import "@aragon/apps-shared-minime/contracts/MiniMeToken.sol";
 
 import "./CounterApp.sol";
-import "aragon-comments/contracts/AragonComments.sol";
+import "@espresso-org/aragon-comments/contracts/AragonComments.sol";
 
 contract KitBase is APMNamehash {
     ENS public ens;
