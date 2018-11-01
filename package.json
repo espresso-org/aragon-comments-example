@@ -25,7 +25,7 @@
     "parcel-bundler": "^1.10.1"
   },
   "scripts": {
-    "start": "npm run start:aragon:ipfs",
+    "start": "aragon run --kit Kit --kit-init @ARAGON_ENS",
     "start:aragon:ipfs": "aragon run",
     "start:aragon:http": "aragon run --http localhost:8001 --http-served-from ./dist",
     "start:aragon:ipfs:kit": "npm run start:aragon:ipfs -- --kit Kit --kit-init @ARAGON_ENS",
