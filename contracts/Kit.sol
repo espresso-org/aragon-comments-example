@@ -62,9 +62,9 @@ contract Kit is KitBase {
         bytes32 aragonCommentsId = apmNamehash("aragon-comments");
         
 
-        AragonComments araComments = AragonComments(dao.newAppInstance(aragonCommentsId, latestVersionAppBase(aragonCommentsId)));
-        araComments.initialize();
-        acl.createPermission(root, araComments, araComments.COMMENT_ROLE(), root);
+        //AragonComments araComments = AragonComments(dao.newAppInstance(aragonCommentsId, latestVersionAppBase(aragonCommentsId)));
+        //araComments.initialize();
+        //acl.createPermission(root, araComments, araComments.COMMENT_ROLE(), root);
 
         CounterApp app = CounterApp(dao.newAppInstance(appId, latestVersionAppBase(appId)));
         Voting voting = Voting(dao.newAppInstance(votingAppId, latestVersionAppBase(votingAppId)));
@@ -88,8 +88,8 @@ contract Kit is KitBase {
         acl.createPermission(ANY_ENTITY, voting, voting.CREATE_VOTES_ROLE(), root);
 
 
-        acl.createPermission(voting, app, app.INCREMENT_ROLE(), voting);
-        acl.createPermission(ANY_ENTITY, app, app.DECREMENT_ROLE(), root);
+        //acl.createPermission(voting, app, app.INCREMENT_ROLE(), voting);
+        acl.createPermission(ANY_ENTITY, app, app.TEST_ROLE(), root);
         acl.grantPermission(voting, tokenManager, tokenManager.MINT_ROLE());
 
         // Clean up permissions
