@@ -64,7 +64,6 @@ contract Kit is KitBase {
 
         AragonComments araComments = AragonComments(dao.newAppInstance(aragonCommentsId, latestVersionAppBase(aragonCommentsId)));
         araComments.initialize();
-        acl.createPermission(root, araComments, araComments.COMMENT_ROLE(), root);
 
         CounterApp app = CounterApp(dao.newAppInstance(appId, latestVersionAppBase(appId)));
         Voting voting = Voting(dao.newAppInstance(votingAppId, latestVersionAppBase(votingAppId)));
@@ -73,6 +72,7 @@ contract Kit is KitBase {
         MiniMeToken token = tokenFactory.createCloneToken(MiniMeToken(0), 0, "App token", 0, "APP", true);
         token.changeController(tokenManager);
 
+        acl.createPermission(app, araComments, araComments.COMMENT_ROLE(), root);
         
         
         
